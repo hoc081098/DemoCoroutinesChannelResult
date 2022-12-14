@@ -58,9 +58,12 @@ class HomeFragment : Fragment() {
             .editText!!
             .text
             ?.toString()
-            .orEmpty(),
+            ?.takeIf { it.isNotBlank() }
+            ?: return@setOnClickListener,
         )
       )
+
+      binding.textInputLayout.editText!!.setText("")
     }
 
     binding.button2.setOnClickListener {
