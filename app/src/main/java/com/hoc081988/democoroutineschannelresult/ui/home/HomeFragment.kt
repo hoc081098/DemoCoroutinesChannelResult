@@ -52,14 +52,16 @@ class HomeFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     binding.button.setOnClickListener {
+      val text = binding.textInputLayout
+        .editText!!
+        .text
+        ?.toString()
+        ?.takeIf { it.isNotBlank() }
+        ?: return@setOnClickListener
+
       mainVM.sendEvent(
         MainSingleEvent.HomeFragmentResult(
-          text = binding.textInputLayout
-            .editText!!
-            .text
-            ?.toString()
-            ?.takeIf { it.isNotBlank() }
-            ?: return@setOnClickListener,
+          text = text,
         )
       )
 

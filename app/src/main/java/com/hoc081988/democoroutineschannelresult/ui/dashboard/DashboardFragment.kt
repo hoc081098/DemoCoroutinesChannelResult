@@ -46,14 +46,16 @@ class DashboardFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     binding.button.setOnClickListener {
+      val text = binding.textInputLayout
+        .editText!!
+        .text
+        ?.toString()
+        ?.takeIf { it.isNotBlank() }
+        ?: return@setOnClickListener
+
       mainVM.sendEvent(
         MainSingleEvent.DashboardFragmentResult(
-          text = binding.textInputLayout
-            .editText!!
-            .text
-            ?.toString()
-            ?.takeIf { it.isNotBlank() }
-            ?: return@setOnClickListener,
+          text = text,
         )
       )
 

@@ -1,5 +1,6 @@
 package com.hoc081988.democoroutineschannelresult
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -51,6 +52,7 @@ class MainVM : ViewModel() {
     checkNotNull(eventChannels[event.key]) { "Must register ${event.key} in MainSingleEvent.Companion.KEYS before using!" }
       .trySend(event)
       .getOrThrow()
+      .also { Log.d("@@@", "Sent $event") }
   }
 
   @Suppress("UNCHECKED_CAST")
