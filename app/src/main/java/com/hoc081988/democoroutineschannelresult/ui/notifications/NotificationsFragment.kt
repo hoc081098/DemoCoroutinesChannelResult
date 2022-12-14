@@ -10,6 +10,8 @@ import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.hoc081988.democoroutineschannelresult.MainSingleEvent
 import com.hoc081988.democoroutineschannelresult.MainVM
 import com.hoc081988.democoroutineschannelresult.databinding.FragmentNotificationsBinding
@@ -61,6 +63,7 @@ class NotificationsFragment : Fragment() {
       setHasFixedSize(true)
       layoutManager = LinearLayoutManager(requireContext())
       adapter = homeResultsAdapter
+      addItemDecoration(MaterialDividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
     val dashboardResultsAdapter = TextResultAdapter()
@@ -68,6 +71,7 @@ class NotificationsFragment : Fragment() {
       setHasFixedSize(true)
       layoutManager = LinearLayoutManager(requireContext())
       adapter = dashboardResultsAdapter
+      addItemDecoration(MaterialDividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
     viewLifecycleOwner.lifecycleScope.launch {
