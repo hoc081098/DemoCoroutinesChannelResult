@@ -1,6 +1,7 @@
 package com.hoc081988.democoroutineschannelresult
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -45,7 +46,7 @@ class MainVM : ViewModel() {
   private val eventChannels: Map<MainSingleEvent.Key<SomeMainSingleEvent>, Channel<SomeMainSingleEvent>> =
     MainSingleEvent.KEYS.associateBy(
       keySelector = { it },
-      valueTransform = { Channel<MainSingleEvent<SomeMainSingleEvent>>(Channel.UNLIMITED) }
+      valueTransform = { Channel(Channel.UNLIMITED) }
     )
 
   fun <T : MainSingleEvent<T>> sendEvent(event: T) {
@@ -61,7 +62,8 @@ class MainVM : ViewModel() {
       .receiveAsFlow()
       .map { it as T }
 
-  override fun onCleared() {
+  @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+  public override fun onCleared() {
     super.onCleared()
     eventChannels.values.forEach { it.close() }
   }
